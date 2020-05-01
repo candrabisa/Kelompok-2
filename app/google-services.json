@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "923532932142",
+    "firebase_url": "https://kelompok2-2b53b.firebaseio.com",
+    "project_id": "kelompok2-2b53b",
+    "storage_bucket": "kelompok2-2b53b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:923532932142:android:b039d1966ff33705b8dbbf",
+        "android_client_info": {
+          "package_name": "com.candra.kelompok2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "923532932142-7eof23gi7e37f1vbrarcaq7vfpnal588.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.candra.kelompok2",
+            "certificate_hash": "81486daabf0b13945442f79539596d9ef3780fe9"
+          }
+        },
+        {
+          "client_id": "923532932142-7avj7c9qs55ih70r8ac45h5leu736tml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7XN25-cwLanh5NC7-Sb9uyAykfMxoYco"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "923532932142-7avj7c9qs55ih70r8ac45h5leu736tml.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
