@@ -25,7 +25,7 @@
             <item
                 android:id="@+id/navigation4"
                 android:checked="false"
-                android:icon="@drawable/ic_settings_black_24dp"
+                android:icon="@drawable/ic_settings_white"
                 android:title="@string/navigation_view_item_4"/>
             <item
                 android:id="@+id/navigation5"

@@ -35,7 +35,6 @@
             android:id="@+id/etUsername"
             android:layout_width="300dp"
             android:layout_height="40dp"
-            android:layout_marginTOP="30dp"
             android:background="#ffffff"
             android:drawableLeft="@drawable/rename"
             android:hint="Username"
