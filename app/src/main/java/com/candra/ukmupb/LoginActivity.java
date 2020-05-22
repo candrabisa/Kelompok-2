@@ -54,6 +54,15 @@ public class LoginActivity extends AppCompatActivity {
            finish();
        }
    });
+   TextView tvLupaPass = findViewById(R.id.tv_lupa_password);
+   tvLupaPass.setOnClickListener(new View.OnClickListener() {
+       @Override
+       public void onClick(View v) {
+           Intent goReset = new Intent(LoginActivity.this, ResetPasswordActivity.class);
+           startActivity(goReset);
+           finish();
+       }
+   });
    Button btnLogin = findViewById(R.id.btnLogin);
    btnLogin.setOnClickListener(new View.OnClickListener() {
        @Override
@@ -66,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
            } else if (password.equals("")){
                Toast.makeText(LoginActivity.this, "Silahkan input password", Toast.LENGTH_SHORT).show();
 
-               progressBar.setVisibility(View.VISIBLE);
+               progressBar.setVisibility(View.GONE);
 
            } else {
                mAuth.signInWithEmailAndPassword(email, password)
@@ -74,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                            @Override
                            public void onComplete(@NonNull Task<AuthResult> task) {
                                if (task.isSuccessful()) {
+                                   progressBar.setVisibility(View.GONE);
                                    // Sign in success, update UI with the signed-in user's information\
                                    FirebaseUser user = mAuth.getCurrentUser();
                                    Toast.makeText(LoginActivity.this, "Login success.",

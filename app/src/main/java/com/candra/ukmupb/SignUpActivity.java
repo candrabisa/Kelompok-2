@@ -68,7 +68,7 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(SignUpActivity.this, "Password minimum 6 karakter",
                             Toast.LENGTH_SHORT).show();
 
-                    progressBar_r.setVisibility(View.VISIBLE);
+                    progressBar_r.setVisibility(View.GONE);
 
                 }else {
                     mAuth.createUserWithEmailAndPassword(email, password)
