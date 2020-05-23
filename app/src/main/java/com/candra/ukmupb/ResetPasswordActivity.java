@@ -35,7 +35,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
         inputEmail = findViewById(R.id.etEmail_F);
         btnKirim = findViewById(R.id.btnKirim_F);
-        progressBar = findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar_F);
 
         TextView tv_Login = findViewById(R.id.tvLogin_F);
         tv_Login.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +54,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplication(), "Enter your registered email", Toast.LENGTH_SHORT).show();
                 }
+                progressBar.setVisibility(View.VISIBLE);
                 FirebaseAuth.getInstance().sendPasswordResetEmail(email)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -63,6 +64,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                                     } else {
                                         Toast.makeText(ResetPasswordActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
                                     }
+                                progressBar.setVisibility(View.INVISIBLE);
                                 }
                             });
 

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
+import androidx.appcompat.widget.AppCompatTextView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Objects;
 
 
 public class SignUpActivity extends AppCompatActivity {
@@ -55,8 +58,8 @@ public class SignUpActivity extends AppCompatActivity {
         btnDaftar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = etEmail_r.getText().toString();
-                String password = etPassword_r.getText().toString();
+                final String email = etEmail_r.getText().toString();
+                final String password = etPassword_r.getText().toString();
 
                 if (email.equals("")){
                     Toast.makeText(SignUpActivity.this, "Email Tidak Boleh Kosong",
@@ -68,24 +71,33 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(SignUpActivity.this, "Password minimum 6 karakter",
                             Toast.LENGTH_SHORT).show();
 
-                    progressBar_r.setVisibility(View.GONE);
-
                 }else {
+                    progressBar_r.setVisibility(View.VISIBLE);
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        // Sign in success, update UI with the signed-in user's information
-                                        FirebaseUser user = mAuth.getCurrentUser();
-                                        Toast.makeText(SignUpActivity.this, "Success.",
-                                                Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+                                        Objects.requireNonNull(mAuth.getCurrentUser()).sendEmailVerification()
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Toast.makeText(SignUpActivity.this, "Daftar berhasil, Silahkan cek email untuk verifikasi.",
+                                                            Toast.LENGTH_SHORT).show();
+                                                    startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+                                                } else {
+                                                    Toast.makeText(SignUpActivity.this, task.getException().getMessage(),
+                                                            Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Toast.makeText(SignUpActivity.this, "Authentication failed "+task.getException().getMessage(),
                                                 Toast.LENGTH_SHORT).show();
                                     }
+                                    progressBar_r.setVisibility(View.GONE);
 
                                     // ...
                                 }

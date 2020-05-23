@@ -127,7 +127,6 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:visibility="invisible" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </LinearLayout>

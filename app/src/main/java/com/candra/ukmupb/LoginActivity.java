@@ -26,6 +26,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -72,34 +74,37 @@ public class LoginActivity extends AppCompatActivity {
 
            if (email.equals("")){
                Toast.makeText(LoginActivity.this, "Silahkan input email", Toast.LENGTH_SHORT).show();
+               return;
            } else if (password.equals("")){
                Toast.makeText(LoginActivity.this, "Silahkan input password", Toast.LENGTH_SHORT).show();
-
-               progressBar.setVisibility(View.GONE);
+               return;
 
            } else {
+               progressBar.setVisibility(View.VISIBLE);
                mAuth.signInWithEmailAndPassword(email, password)
                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                            @Override
                            public void onComplete(@NonNull Task<AuthResult> task) {
                                if (task.isSuccessful()) {
-                                   progressBar.setVisibility(View.GONE);
-                                   // Sign in success, update UI with the signed-in user's information\
-                                   FirebaseUser user = mAuth.getCurrentUser();
-                                   Toast.makeText(LoginActivity.this, "Login success.",
-                                           Toast.LENGTH_SHORT).show();
+                                   if (Objects.requireNonNull(mAuth.getCurrentUser()).isEmailVerified()) {
+                                       Toast.makeText(LoginActivity.this, "Login success.",
+                                               Toast.LENGTH_SHORT).show();
                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                       finish();
+                                   } else {
+                                       Toast.makeText(LoginActivity.this, "Anda belum melakukan verifikasi email, Silahkan verify email dahulu",
+                                               Toast.LENGTH_SHORT).show();
+                                   }
                                }else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                                    Toast.makeText(LoginActivity.this, " Email belum terdaftar",
                                            Toast.LENGTH_SHORT).show();
                                } else {
                                    // If sign in fails, display a message to the user.
-                                   Toast.makeText(LoginActivity.this, "Login failed.",
+                                   Toast.makeText(LoginActivity.this, "Login gagal",
                                            Toast.LENGTH_SHORT).show();
                                }
                            }
                        });
+               progressBar.setVisibility(View.GONE);
            }
 
        }
