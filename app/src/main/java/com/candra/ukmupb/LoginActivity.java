@@ -73,10 +73,10 @@ public class LoginActivity extends AppCompatActivity {
            String password = etPassword.getText().toString();
 
            if (email.equals("")){
-               Toast.makeText(LoginActivity.this, "Silahkan input email", Toast.LENGTH_SHORT).show();
+               Toast.makeText(LoginActivity.this, "Anda belum memasukkan email", Toast.LENGTH_SHORT).show();
                return;
            } else if (password.equals("")){
-               Toast.makeText(LoginActivity.this, "Silahkan input password", Toast.LENGTH_SHORT).show();
+               Toast.makeText(LoginActivity.this, "Anda belum memasukkan password", Toast.LENGTH_SHORT).show();
                return;
 
            } else {
@@ -85,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                            @Override
                            public void onComplete(@NonNull Task<AuthResult> task) {
+                               progressBar.setVisibility(View.VISIBLE);
                                if (task.isSuccessful()) {
                                    if (Objects.requireNonNull(mAuth.getCurrentUser()).isEmailVerified()) {
                                        Toast.makeText(LoginActivity.this, "Login success.",
@@ -99,12 +100,12 @@ public class LoginActivity extends AppCompatActivity {
                                            Toast.LENGTH_SHORT).show();
                                } else {
                                    // If sign in fails, display a message to the user.
-                                   Toast.makeText(LoginActivity.this, "Login gagal",
+                                   Toast.makeText(LoginActivity.this, "Password salah!",
                                            Toast.LENGTH_SHORT).show();
                                }
+                               progressBar.setVisibility(View.INVISIBLE);
                            }
                        });
-               progressBar.setVisibility(View.GONE);
            }
 
        }

@@ -6,8 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Patterns;
-import androidx.appcompat.widget.AppCompatTextView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,21 +13,28 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.candra.ukmupb.fragment.UserFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 
 public class SignUpActivity extends AppCompatActivity {
 
+    public static final String TAG = "TAG";
     private FirebaseAuth mAuth;
+    private FirebaseFirestore FStore;
     private EditText etName_r, etEmail_r, etPassword_r, etNIM_r;
     private ProgressBar progressBar_r;
+    String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -38,6 +43,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        FStore = FirebaseFirestore.getInstance();
         etName_r = findViewById(R.id.etName_r);
         etEmail_r = findViewById(R.id.etEmail_r);
         etNIM_r = findViewById(R.id.etNIM_r);
@@ -60,6 +66,8 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final String email = etEmail_r.getText().toString();
                 final String password = etPassword_r.getText().toString();
+                final String nama_lengkap = etName_r.getText().toString();
+                final String nim = etNIM_r.getText().toString();
 
                 if (email.equals("")){
                     Toast.makeText(SignUpActivity.this, "Email Tidak Boleh Kosong",
@@ -85,6 +93,18 @@ public class SignUpActivity extends AppCompatActivity {
                                                 if (task.isSuccessful()) {
                                                     Toast.makeText(SignUpActivity.this, "Daftar berhasil, Silahkan cek email untuk verifikasi.",
                                                             Toast.LENGTH_SHORT).show();
+                                                    userID = mAuth.getCurrentUser().getUid();
+                                                    DocumentReference documentReference = FStore.collection("users").document(userID);
+                                                    Map<String, String> user = new HashMap<>();
+                                                    user.put("namalengkap", nama_lengkap);
+                                                    user.put("email", email);
+                                                    user.put("nim", nim);
+                                                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Log.d(TAG, "onSucces: User Profile is created for"+ userID);
+                                                        }
+                                                    });
                                                     startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
                                                 } else {
                                                     Toast.makeText(SignUpActivity.this, task.getException().getMessage(),
