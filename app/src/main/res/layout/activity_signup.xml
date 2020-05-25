@@ -11,8 +11,8 @@
     tools:context=".SignUpActivity">
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:src="@drawable/ukmpb"/>
 
     <TextView
@@ -44,7 +44,7 @@
         android:layout_height="40dp"
         android:background="#FFFFFF"
         android:hint="example@gmail.com"
-        android:inputType="text"/>
+        android:inputType="textEmailAddress"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -54,12 +54,29 @@
         android:textSize="18sp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="134dp"/>
+
     <EditText
         android:id="@+id/etNIM_r"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:background="#FFFFFF"
         android:hint="NIM"
+        android:inputType="number" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Anggota Organisasi"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="74dp"/>
+    <EditText
+        android:id="@+id/etanggota_r"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:background="#FFFFFF"
+        android:hint="Anggota"
         android:inputType="text"/>
 
     <TextView

@@ -7,17 +7,17 @@
         android:title="Beranda" />
 
     <item
-        android:id="@+id/navigation_search"
-        android:icon="@drawable/ic_search_white"
-        android:title="Cari"/>
-
-    <item
         android:id="@+id/navigation_user"
         android:icon="@drawable/ic_person_white"
         android:title="Profil" />
 
     <item
-        android:id="@+id/navigation_comment"
+        android:id="@+id/navigation_message"
+        android:icon="@drawable/ic_message_black_24dp"
+        android:title="Pesan"/>
+
+    <item
+        android:id="@+id/navigation_settings"
         android:icon="@drawable/ic_settings_white"
         android:title="Settings" />
 </menu>

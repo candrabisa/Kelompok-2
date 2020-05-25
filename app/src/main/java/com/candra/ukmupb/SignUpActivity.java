@@ -32,7 +32,7 @@ public class SignUpActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
     private FirebaseAuth mAuth;
     private FirebaseFirestore FStore;
-    private EditText etName_r, etEmail_r, etPassword_r, etNIM_r;
+    private EditText etName_r, etEmail_r, etPassword_r, etNIM_r, etAnggota_r;
     private ProgressBar progressBar_r;
     String userID;
 
@@ -47,6 +47,7 @@ public class SignUpActivity extends AppCompatActivity {
         etName_r = findViewById(R.id.etName_r);
         etEmail_r = findViewById(R.id.etEmail_r);
         etNIM_r = findViewById(R.id.etNIM_r);
+        etAnggota_r = findViewById(R.id.etanggota_r);
         etPassword_r = findViewById(R.id.etPassword_r);
         progressBar_r = findViewById(R.id.progressBar_r);
 
@@ -68,13 +69,23 @@ public class SignUpActivity extends AppCompatActivity {
                 final String password = etPassword_r.getText().toString();
                 final String nama_lengkap = etName_r.getText().toString();
                 final String nim = etNIM_r.getText().toString();
+                final String anggota = etAnggota_r.getText().toString();
 
-                if (email.equals("")){
+                if (nama_lengkap.equals("")) {
+                    Toast.makeText(SignUpActivity.this, "Nama Tidak Boleh Kosong",
+                            Toast.LENGTH_SHORT).show();
+                }else if (email.equals("")){
                     Toast.makeText(SignUpActivity.this, "Email Tidak Boleh Kosong",
                             Toast.LENGTH_SHORT).show();
-                } else if (password.equals("")) {
+                }else if (nim.equals("")) {
+                    Toast.makeText(SignUpActivity.this, "NIM Tidak Boleh Kosong",
+                            Toast.LENGTH_SHORT).show();
+                }else if (anggota.equals("")) {
                     Toast.makeText(SignUpActivity.this, "Password Tidak Boleh Kosong",
                             Toast.LENGTH_SHORT).show();
+                } else if (password.equals("")) {
+                        Toast.makeText(SignUpActivity.this, "Password Tidak Boleh Kosong",
+                                Toast.LENGTH_SHORT).show();
                 } else if (password.length()<6) {
                     Toast.makeText(SignUpActivity.this, "Password minimum 6 karakter",
                             Toast.LENGTH_SHORT).show();
@@ -99,6 +110,8 @@ public class SignUpActivity extends AppCompatActivity {
                                                     user.put("namalengkap", nama_lengkap);
                                                     user.put("email", email);
                                                     user.put("nim", nim);
+                                                    user.put("anggotaukm", anggota);
+                                                    user.put("password", password);
                                                     documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {

@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                                            Toast.LENGTH_SHORT).show();
                                } else {
                                    // If sign in fails, display a message to the user.
-                                   Toast.makeText(LoginActivity.this, "Password salah!",
+                                   Toast.makeText(LoginActivity.this, "Email atau password salah!",
                                            Toast.LENGTH_SHORT).show();
                                }
                                progressBar.setVisibility(View.INVISIBLE);
