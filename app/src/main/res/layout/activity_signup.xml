@@ -8,7 +8,7 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:background="#256286"
-    tools:context=".SignUpActivity">
+    tools:context=".activity.SignUpActivity">
 
     <ImageView
         android:layout_width="150dp"
@@ -24,7 +24,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="91dp"/>
     <EditText
-        android:id="@+id/etName_r"
+        android:id="@+id/etName_su"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:background="#FFFFFF"
@@ -39,7 +39,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="128dp"/>
     <EditText
-        android:id="@+id/etEmail_r"
+        android:id="@+id/etEmail_su"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:background="#FFFFFF"
@@ -56,7 +56,7 @@
         android:layout_marginRight="134dp"/>
 
     <EditText
-        android:id="@+id/etNIM_r"
+        android:id="@+id/etNIM_su"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:background="#FFFFFF"
@@ -72,7 +72,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="74dp"/>
     <EditText
-        android:id="@+id/etanggota_r"
+        android:id="@+id/etanggota_su"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:background="#FFFFFF"
@@ -88,7 +88,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="111dp"/>
     <EditText
-        android:id="@+id/etPassword_r"
+        android:id="@+id/etPassword_su"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:background="#FFFFFF"
@@ -96,7 +96,7 @@
         android:inputType="textPassword"/>
 
     <Button
-        android:id="@+id/btnDaftar_r"
+        android:id="@+id/btnDaftar_su"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
@@ -119,7 +119,7 @@
             android:textSize="15sp"
             android:text="Sudah punya akun? Silahkan "/>
         <TextView
-            android:id="@+id/etLogin_r"
+            android:id="@+id/etLogin_su"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_marginTop="15dp"
@@ -130,7 +130,7 @@
     </LinearLayout>
 
     <ProgressBar
-        android:id="@+id/progressBar_r"
+        android:id="@+id/progressBar_su"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"

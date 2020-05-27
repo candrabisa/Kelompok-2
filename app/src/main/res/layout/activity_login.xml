@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:background="#256286"
     android:gravity="center_vertical"
-    tools:context=".LoginActivity">
+    tools:context=".activity.LoginActivity">
 
     <ImageView
         android:layout_width="200dp"
@@ -36,10 +36,11 @@
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:background="#ffffff"
-            android:drawableLeft="@drawable/ic_email_black"
+            android:drawableStart="@drawable/ic_email_black_24dp"
             android:hint="Email"
             android:inputType="text"
-            android:autofillHints="" />
+            android:autofillHints=""
+            tools:ignore="TextFields" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -54,7 +55,7 @@
             android:layout_height="40dp"
             android:background="#FFFFFF"
             android:layout_marginTop="20dp"
-            android:drawableLeft="@drawable/lock_24"
+            android:drawableStart="@drawable/ic_lock_black_24dp"
             android:hint="Password"
             android:inputType="textPassword"
             app:layout_constraintBottom_toTopOf="@id/btnLogin"
