@@ -3,12 +3,15 @@ package com.candra.ukmupb.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firestore.v1.Value;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +43,7 @@ public class SignUpActivity extends AppCompatActivity {
     private ProgressBar progressBar_r;
     String userID;
 
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -53,6 +58,7 @@ public class SignUpActivity extends AppCompatActivity {
         etAnggota_r = findViewById(R.id.etanggota_su);
         etPassword_r = findViewById(R.id.etPassword_su);
         progressBar_r = findViewById(R.id.progressBar_su);
+
 
 
         TextView btnLogin = findViewById(R.id.etLogin_su);
@@ -73,6 +79,7 @@ public class SignUpActivity extends AppCompatActivity {
                 final String nama_lengkap = etName_r.getText().toString();
                 final String nim = etNIM_r.getText().toString();
                 final String anggota = etAnggota_r.getText().toString();
+
 
                 if (nama_lengkap.equals("")) {
                     Toast.makeText(SignUpActivity.this, "Nama Tidak Boleh Kosong",
@@ -116,6 +123,8 @@ public class SignUpActivity extends AppCompatActivity {
                                                             user.put("nim", nim);
                                                             user.put("anggotaukm", anggota);
                                                             user.put("password", password);
+                                                            user.put("image", "");
+                                                            user.put("cover", "");
                                                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                                                             DatabaseReference databaseReference = database.getReference("users");
                                                             databaseReference.child(UserID).setValue(user);

@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.candra.ukmupb.R;
 import com.candra.ukmupb.activity.LoginActivity;
 import com.candra.ukmupb.activity.MainActivity;
@@ -51,30 +54,30 @@ import com.google.firestore.v1.Value;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
 import static com.google.firebase.storage.FirebaseStorage.getInstance;
 
 public class fragment_user extends Fragment {
 
-    FirebaseAuth mAuth;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
-    FirebaseUser firebaseUser;
-    StorageReference storageReference;
+    private DatabaseReference databaseReference;
+    private FirebaseUser firebaseUser;
+    private StorageReference storageReference;
 
     //deklarasi tempat penyimpanan foto profil dan cover
-    String storagePath = "users_profile_cover_img/";
+    private String storagePath = "users_profile_cover_img/";
 
 
     //deklarasi data dari xml
-    ImageView imgProfil,CoverProfil;
-    TextView tv_nama, tv_nim, tv_email, tv_password, tv_anggota;
-    ProgressBar progressBar;
-    Button btn_edit;
+    private ImageView imgProfil,CoverProfil;
+    private TextView tv_nama, tv_nim, tv_email, tv_password, tv_anggota;
+    private EditText editText;
+    private ProgressBar progressBar;
+    private Button btn_edit;
 
     //deklarasi dialog
-    ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
 
     //permissions contact
     private static final int CAMERA_REQUEST_CODE = 100;
@@ -83,14 +86,14 @@ public class fragment_user extends Fragment {
     private static final int IMAGE_PICK_CAMERA_REQUEST_CODE = 400;
 
     //arrays of permissions to be request
-    String cameraPermissions[];
-    String storagePermissons[];
+    private String cameraPermissions[];
+    private String storagePermissons[];
 
     //uri picked image
-    Uri image_uri;
+    private Uri image_uri;
 
     //Check foto profil atau cover
-    String profileOrCoverPhoto;
+    private String profileOrCoverPhoto;
 
     public fragment_user() {
         // Required empty public constructor
@@ -103,9 +106,9 @@ public class fragment_user extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user, container, false);
 
         //init firebase
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
-        firebaseDatabase = FirebaseDatabase.getInstance();
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("users");
         storageReference = getInstance().getReference();
 
@@ -119,8 +122,8 @@ public class fragment_user extends Fragment {
         tv_email = view.findViewById(R.id.tv_email_user);
         tv_nim = view.findViewById(R.id.tv_nim_user);
         tv_anggota = view.findViewById(R.id.tv_oragnisasi_user);
-        tv_password = view.findViewById(R.id.tv_password_user);
         btn_edit = view.findViewById(R.id.btn_edit_profil);
+        editText = view.findViewById(R.id.editText);
 
         //init progress dialog
         progressDialog = new ProgressDialog(getActivity());
@@ -137,23 +140,23 @@ public class fragment_user extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
                     //get data
-                    String nama = "" + ds.child("nama").getValue();
+                    String nama = "" + ds.child("namalengkap").getValue();
                     String email = "" + ds.child("email").getValue();
                     String nim = "" + ds.child("nim").getValue();
                     String image = "" + ds.child("image").getValue();
                     String cover = "" + ds.child("cover").getValue();
                     String anggotaukm = "" + ds.child("anggotaukm").getValue();
-                    String password = "" + ds.child("password").getValue();
 
                     //set data
                     tv_nama.setText(nama);
                     tv_email.setText(email);
                     tv_nim.setText(nim);
                     tv_anggota.setText(anggotaukm);
-                    tv_password.setText(password);
-
                     try {
-                        Picasso.get().load(image).into(imgProfil);
+                        Glide.with(getActivity())
+                                .load(image)
+                                .apply(RequestOptions.circleCropTransform())
+                                .into(imgProfil);
                     }
                     catch (Exception e){
                         Picasso.get().load(R.drawable.ic_account_circle_black_24dp).into(imgProfil);
@@ -164,10 +167,10 @@ public class fragment_user extends Fragment {
                     catch (Exception e){
 
                     }
+
                 }
                 progressBar.setVisibility(View.INVISIBLE);
             }
-
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -182,8 +185,8 @@ public class fragment_user extends Fragment {
             }
         });
 
-
         return view;
+
 
     }
 
@@ -208,7 +211,7 @@ public class fragment_user extends Fragment {
     }
 
     private void showEditProfilDialog() {
-        String options[] = {"Edit Cover Picture", "Edit Profile Pictures","Edit Nama", "Edit Email","Edit NIM", "Edit Organisasi", "Edit Password"};
+        String options[] = {"Edit Cover Profil", "Edit Foto Profil","Edit Nama", "Edit NIM", "Edit Organisasi"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Choose Action");
         builder.setItems(options, new DialogInterface.OnClickListener() {
@@ -216,33 +219,26 @@ public class fragment_user extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0){
                     //edit foto cover
-                    progressDialog.setMessage("Cover berhasil diubah");
+                    progressDialog.setMessage("Mengubah Gambar Cover");
                     profileOrCoverPhoto = "cover";
                     showImagePicDialog();
                 } else if (which == 1){
                     //edit foto profil
-                    progressDialog.setMessage("Foto Profil berhasil diubah");
+                    progressDialog.setMessage("Mengubah Foto Profil");
                     profileOrCoverPhoto = "image";
                     showImagePicDialog();
                 } else if (which == 2){
                     //edit nama profil
-                    progressDialog.setMessage("Nama berhasil diubah");
-                    showNamaNimOrganisasiUpdateDialog("nama");
+                    progressDialog.setMessage("Mengubah Nama");
+                    showNamaNimOrganisasiUpdateDialog("namalengkap");
                 } else if (which == 3){
-                    //edit email
-                    progressDialog.setMessage("Email berhasil diubah");
-                    showNamaNimOrganisasiUpdateDialog("email");
-                } else if (which == 4){
                     //edit nim
-                    progressDialog.setMessage("Nim berhasil diubah");
+                    progressDialog.setMessage("Mengubah NIM");
                     showNamaNimOrganisasiUpdateDialog("nim");
-                } else if (which == 5){
+                } else if (which == 4){
                     //edit Organisasi
-                    progressDialog.setMessage("Organisasi berhasil diubah");
+                    progressDialog.setMessage("Mengubah Organisasi");
                     showNamaNimOrganisasiUpdateDialog("anggotaukm");
-                } else if (which == 6){
-                    //edit password
-                    progressDialog.setMessage("Password berhasil diubah");
                 }
 
             }
@@ -255,27 +251,24 @@ public class fragment_user extends Fragment {
         builder.setTitle("Update "+ key);
         LinearLayout linearLayout = new LinearLayout(getActivity());
         linearLayout.setOrientation(LinearLayout.VERTICAL);
-        linearLayout.setPadding(10,10,10,10);
-        final EditText editText = new EditText(getActivity());
-        editText.setHint("Enter "+key);
-
-        builder.setView(linearLayout);
+        final View customLayout = getLayoutInflater().inflate(R.layout.activity_alert, null);
+        builder.setView(customLayout);
         //add button upload
         builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                EditText editText = customLayout.findViewById(R.id.editText);
                 String value = editText.getText().toString().trim();
                 if (!TextUtils.isEmpty(value)){
                     progressDialog.show();
                     HashMap<String, Object> result = new HashMap<>();
                     result.put(key, value);
-
                     databaseReference.child(firebaseUser.getUid()).updateChildren(result)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     progressDialog.dismiss();
-                                    Toast.makeText(getActivity(), "Updated...", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), "Berhasil Updated.", Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -331,6 +324,7 @@ public class fragment_user extends Fragment {
         builder.create().show();
     }
 
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
@@ -366,12 +360,15 @@ public class fragment_user extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @androidx.annotation.Nullable Intent data) {
-        if (resultCode == RESULT_OK){
-            if (resultCode == IMAGE_PICK_GALLERY_REQUEST_CODE){
+        if (requestCode == IMAGE_PICK_GALLERY_REQUEST_CODE){
+            if (resultCode == Activity.RESULT_OK){
+                assert data != null;
                 image_uri = data.getData();
                 uploadProfileCoverPhoto(image_uri);
             }
-            if (resultCode == IMAGE_PICK_CAMERA_REQUEST_CODE){
+        } if (requestCode == IMAGE_PICK_CAMERA_REQUEST_CODE){
+            if (resultCode == RESULT_OK){
+                assert data != null;
                 image_uri = data.getData();
                 uploadProfileCoverPhoto(image_uri);
             }
@@ -397,6 +394,7 @@ public class fragment_user extends Fragment {
                         if (uriTask.isSuccessful()){
                             //upload gambar
                             HashMap<String, Object> result = new HashMap<>();
+                            assert downloadUri != null;
                             result.put(profileOrCoverPhoto, downloadUri.toString());
                             databaseReference.child(firebaseUser.getUid()).updateChildren(result)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -435,7 +433,7 @@ public class fragment_user extends Fragment {
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE, "Temp Pic");
         values.put(MediaStore.Images.Media.DESCRIPTION, "Temp Desciption");
-        image_uri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        image_uri = Objects.requireNonNull(getActivity()).getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 
         //Intent ke kamera
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
