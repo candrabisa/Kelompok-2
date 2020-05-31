@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -140,7 +142,7 @@ public class fragment_user extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
                     //get data
-                    String nama = "" + ds.child("namalengkap").getValue();
+                    String namalengkap = "" + ds.child("namalengkap").getValue();
                     String email = "" + ds.child("email").getValue();
                     String nim = "" + ds.child("nim").getValue();
                     String image = "" + ds.child("image").getValue();
@@ -148,7 +150,7 @@ public class fragment_user extends Fragment {
                     String anggotaukm = "" + ds.child("anggotaukm").getValue();
 
                     //set data
-                    tv_nama.setText(nama);
+                    tv_nama.setText(namalengkap);
                     tv_email.setText(email);
                     tv_nim.setText(nim);
                     tv_anggota.setText(anggotaukm);
@@ -191,16 +193,15 @@ public class fragment_user extends Fragment {
     }
 
     private boolean checkStoragePermissions(){
-        boolean result = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        return ContextCompat.checkSelfPermission(Objects.requireNonNull(getActivity()), Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == (PackageManager.PERMISSION_GRANTED);
-        return result;
     }
     private void requestStoragePermissions(){
         requestPermissions(storagePermissons, STORAGE_REQUEST_CODE);
     }
 
     private boolean checkCameraPermissions(){
-        boolean result = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        boolean result = ContextCompat.checkSelfPermission(Objects.requireNonNull(getActivity()), Manifest.permission.CAMERA)
                 == (PackageManager.PERMISSION_GRANTED);
         boolean result1 = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == (PackageManager.PERMISSION_GRANTED);
@@ -211,7 +212,7 @@ public class fragment_user extends Fragment {
     }
 
     private void showEditProfilDialog() {
-        String options[] = {"Edit Cover Profil", "Edit Foto Profil","Edit Nama", "Edit NIM", "Edit Organisasi"};
+        String[] options = {"Edit Cover Profil", "Edit Foto Profil","Edit Nama", "Edit NIM", "Edit Organisasi"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Choose Action");
         builder.setItems(options, new DialogInterface.OnClickListener() {
@@ -296,7 +297,7 @@ public class fragment_user extends Fragment {
     }
 
     private void showImagePicDialog() {
-        String options[] = {"Camera", "Gallery"};
+        String options[] = {"Kamera", "Galeri"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Pilih gambar dari");
         builder.setItems(options, new DialogInterface.OnClickListener() {
@@ -360,14 +361,14 @@ public class fragment_user extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @androidx.annotation.Nullable Intent data) {
-        if (requestCode == IMAGE_PICK_GALLERY_REQUEST_CODE){
+        if (requestCode == IMAGE_PICK_CAMERA_REQUEST_CODE){
             if (resultCode == Activity.RESULT_OK){
                 assert data != null;
                 image_uri = data.getData();
                 uploadProfileCoverPhoto(image_uri);
             }
-        } if (requestCode == IMAGE_PICK_CAMERA_REQUEST_CODE){
-            if (resultCode == RESULT_OK){
+        } if (requestCode == IMAGE_PICK_GALLERY_REQUEST_CODE){
+            if (resultCode == Activity.RESULT_OK){
                 assert data != null;
                 image_uri = data.getData();
                 uploadProfileCoverPhoto(image_uri);
@@ -439,6 +440,7 @@ public class fragment_user extends Fragment {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
         startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_REQUEST_CODE);
+
     }
 
     private void pickFromGallery() {
@@ -446,6 +448,27 @@ public class fragment_user extends Fragment {
         Intent galerryIntent = new Intent(Intent.ACTION_PICK);
         galerryIntent.setType("image/*");
         startActivityForResult(galerryIntent, IMAGE_PICK_GALLERY_REQUEST_CODE);
+    }
+
+    private void checkUserStatus(){
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser !=null){
+
+        }else {
+            startActivity(new Intent(getActivity(), MainActivity.class));
+            getActivity().finish();
+        }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState){
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+    }
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater){
+        inflater.inflate(R.menu.navigation, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }
 

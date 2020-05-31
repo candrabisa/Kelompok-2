@@ -1,142 +1,206 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
     android:background="#256286"
     tools:context=".activity.SignUpActivity">
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/ukmpb"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nama Lengkap"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="91dp"/>
-    <EditText
-        android:id="@+id/etName_su"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:background="#FFFFFF"
-        android:hint="Nama Lengkap"
-        android:inputType="text"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="128dp"/>
-    <EditText
-        android:id="@+id/etEmail_su"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:background="#FFFFFF"
-        android:hint="example@gmail.com"
-        android:inputType="textEmailAddress"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="NIM"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="134dp"/>
-
-    <EditText
-        android:id="@+id/etNIM_su"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:background="#FFFFFF"
-        android:hint="NIM"
-        android:inputType="number" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Anggota Organisasi"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="74dp"/>
-    <EditText
-        android:id="@+id/etanggota_su"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:background="#FFFFFF"
-        android:hint="Anggota"
-        android:inputType="text"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Password"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="111dp"/>
-    <EditText
-        android:id="@+id/etPassword_su"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:background="#FFFFFF"
-        android:hint="Password"
-        android:inputType="textPassword"/>
-
-    <Button
-        android:id="@+id/btnDaftar_su"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:background="#88bd72"
-        android:text="DAFTAR"
-        android:focusable="true"
-        android:textColor="#FFFFFF"/>
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
+        android:layout_height="match_parent">
+            <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:src="@drawable/ukmpb"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="130dp"
+                    android:gravity="center">
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nama Lengkap"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"/>
+                        <EditText
+                            android:id="@+id/etName_su"
+                            android:layout_width="300dp"
+                            android:layout_height="40dp"
+                            android:background="#FFFFFF"
+                            android:hint="Nama Lengkap"
+                            android:inputType="text"
+                            android:layout_marginTop="23dp"/>
+                    </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="200dp">
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Email"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
+                            android:layout_marginRight="128dp"/>
+                        <EditText
+                            android:id="@+id/etEmail_su"
+                            android:layout_width="300dp"
+                            android:layout_height="40dp"
+                            android:background="#FFFFFF"
+                            android:hint="example@gmail.com"
+                            android:inputType="textEmailAddress"
+                            android:layout_marginTop="22dp"/>
+                    </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="270dp">
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="NIM"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
+                            android:layout_marginRight="134dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_marginTop="15dp"
-            android:textColor="#FFFFFF"
-            android:typeface="monospace"
-            android:textSize="15sp"
-            android:text="Sudah punya akun? Silahkan "/>
-        <TextView
-            android:id="@+id/etLogin_su"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_marginTop="15dp"
-            android:text="Login"
-            android:textColor="#88bd72"
-            android:textSize="15sp"
-            android:textStyle="bold"/>
-    </LinearLayout>
+                        <EditText
+                            android:id="@+id/etNIM_su"
+                            android:layout_width="300dp"
+                            android:layout_height="40dp"
+                            android:background="#FFFFFF"
+                            android:hint="NIM"
+                            android:inputType="number"
+                            android:layout_marginTop="22dp"/>
+                    </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="340dp">
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Anggota Organisasi"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"/>
+                        <EditText
+                            android:id="@+id/etanggota_su"
+                            android:layout_width="300dp"
+                            android:layout_height="40dp"
+                            android:background="#FFFFFF"
+                            android:hint="Keanggotaan"
+                            android:inputType="text"
+                            android:layout_marginTop="25dp"/>
+                    </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="413dp">
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Password"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"/>
+                        <EditText
+                            android:id="@+id/etPassword_su"
+                            android:layout_width="300dp"
+                            android:layout_height="40dp"
+                            android:background="#FFFFFF"
+                            android:hint="Password"
+                            android:inputType="textPassword"
+                            android:layout_marginTop="25dp"/>
+                    </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="500dp">
+                    <Button
+                        android:id="@+id/btnDaftar_su"
+                        android:layout_width="300dp"
+                        android:layout_height="50dp"
+                        android:background="#88bd72"
+                        android:text="DAFTAR"
+                        android:focusable="true"
+                        android:textColor="#FFFFFF"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="540dp">
 
-    <ProgressBar
-        android:id="@+id/progressBar_su"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|bottom"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:visibility="invisible" />
-</LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="15dp"
+                        android:textColor="#FFFFFF"
+                        android:typeface="monospace"
+                        android:textSize="15sp"
+                        android:text="Sudah punya akun? Silahkan "/>
+                    <TextView
+                        android:id="@+id/etLogin_su"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="15dp"
+                        android:text="Login"
+                        android:textColor="#88bd72"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/progressBar_su"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|bottom"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:visibility="invisible"
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>
