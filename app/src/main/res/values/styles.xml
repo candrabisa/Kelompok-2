@@ -16,4 +16,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--for chatting theme-->
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
 </resources>

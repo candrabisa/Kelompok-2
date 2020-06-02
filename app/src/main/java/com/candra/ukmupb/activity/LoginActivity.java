@@ -121,10 +121,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
     }
+
     @Override
     public void onBackPressed() {
         Intent goLogin = new Intent(LoginActivity.this, AutoCloseable.class);

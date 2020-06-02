@@ -1,6 +1,7 @@
 package com.candra.ukmupb.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.candra.ukmupb.R;
+import com.candra.ukmupb.activity.ChatActivity;
 import com.candra.ukmupb.model.ModelUser;
 import com.squareup.picasso.Picasso;
 
@@ -44,6 +46,8 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyHolder myHolder, int position) {
+        //get data
+        final String hisUID = userList.get(position).getEmail();
         String userImage = userList.get(position).getImage();
         final String userNIM = userList.get(position).getNim();
         final String userName= userList.get(position).getNamaLengkap();
@@ -64,7 +68,9 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder> {
         myHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,""+userNIM, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, ChatActivity.class);
+                intent.putExtra("hisUid", hisUID);
+                context.startActivity(intent);
             }
         });
        

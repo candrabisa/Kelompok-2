@@ -1,6 +1,7 @@
 package com.candra.ukmupb.activity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.candra.ukmupb.R;
+import com.candra.ukmupb.fragment.ChatListFragment;
 import com.candra.ukmupb.fragment.fragment_home;
 import com.candra.ukmupb.fragment.fragment_message;
 import com.candra.ukmupb.fragment.fragment_search;
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = new fragment_user();
                     break;
                 case R.id.navigation_message:
-                    selectedFragment = new fragment_message();
+                    selectedFragment = new ChatListFragment();
                     break;
             }
             assert selectedFragment != null;

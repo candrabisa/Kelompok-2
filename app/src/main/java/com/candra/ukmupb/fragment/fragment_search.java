@@ -2,6 +2,8 @@ package com.candra.ukmupb.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.ViewParent;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -172,7 +174,7 @@ public class fragment_search extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                if(!query.equals("")) {
+                if(!TextUtils.isEmpty(query.trim())) {
                     searchUsers(query);
                 } else {
                     getAllUser();
@@ -192,6 +194,19 @@ public class fragment_search extends Fragment {
         });
 
         super.onCreateOptionsMenu(menu, inflater);
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        //recycler
+        RecyclerView recyclerView = view.findViewById(R.id.user_recyclerView);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+
+        // define an adapter
+        adapterUser = new AdapterUser(null, userList);
+        recyclerView.setAdapter(adapterUser);
     }
 
 
