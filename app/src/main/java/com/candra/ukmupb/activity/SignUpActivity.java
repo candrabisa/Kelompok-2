@@ -123,6 +123,7 @@ public class SignUpActivity extends AppCompatActivity {
                                                             user.put("nim", nim);
                                                             user.put("anggotaukm", anggota);
                                                             user.put("password", password);
+                                                            user.put("onlineStatus", "online");
                                                             user.put("image", "");
                                                             user.put("cover", "");
                                                             FirebaseDatabase database = FirebaseDatabase.getInstance();

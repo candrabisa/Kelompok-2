@@ -41,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etEmail, etPassword;
     private ProgressBar progressBar;
 
+    String myUid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -118,8 +120,19 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+    private void checkUserStatus(){
+        FirebaseUser fUser = mAuth.getCurrentUser();
+        if (fUser !=null){
+            //ini adalah cara mengecek status online pengguna melalui user id
+            myUid = fUser.getUid();
+
+        }else {
+
+        }
+    }
     @Override
     public void onStart() {
+        checkUserStatus();
         super.onStart();
     }
 

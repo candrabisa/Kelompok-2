@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,8 +39,10 @@ import com.google.firebase.database.annotations.Nullable;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -109,6 +112,18 @@ public class ChatActivity extends AppCompatActivity {
                     //get data
                     String nama =""+ds.child("namalengkap").getValue();
                     hisImage = ""+ds.child("image").getValue();
+                    //get value online status
+                    String onlineStatus = ""+ds.child("onlineStatus").getValue();
+                    if (onlineStatus.equals("online")){
+                        tv_userStatus.setText(onlineStatus);
+                    } else {
+                        //convert dari timestamp
+                        //convert timestamp to dd/mm/yyyy hh:mm pm/am
+                        Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
+                        calendar.setTimeInMillis(Long.parseLong(onlineStatus));
+                        String dateTime = DateFormat.format("dd/MM/yyyy hh:mm aa", calendar).toString();
+                        tv_userStatus.setText("Terakhir dilihat: "+dateTime);
+                    }
                     //set data
                     tv_nama.setText(nama);
                     try {
@@ -210,27 +225,47 @@ public class ChatActivity extends AppCompatActivity {
         etMessage.setText("");
     }
 
+    private void checkOnlineStatus(String status){
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("users").child(myUid);
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("onlineStatus", status);
+        //update value of onlnestatus pf current user
+        dbRef.updateChildren(hashMap);
+    }
+
 
     @Override
     protected void onStart() {
         checkUserStatus();
+        checkOnlineStatus("online");
         super.onStart();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        //get timestamp
+        String timestamp = String.valueOf(System.currentTimeMillis());
+        //set offline with last seen time stamp
+        checkOnlineStatus(timestamp);
         userRefForisSeen.removeEventListener(isSeenListener);
+    }
+
+    @Override
+    protected void onResume() {
+        //set online
+        checkOnlineStatus("online");
+        super.onResume();
     }
 
     private void checkUserStatus(){
         FirebaseUser fUser = mAuth.getCurrentUser();
         if (fUser !=null){
             //ini adalah cara mengecek status online pengguna melalui user id
-            myUid = fUser.getEmail();
+            myUid = fUser.getUid();
 
         }else {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, LoginActivity.class));
             finish();
         }
     }
