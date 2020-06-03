@@ -135,7 +135,7 @@ public class fragment_user extends Fragment {
         storagePermissons = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
 
-        Query query = databaseReference.orderByChild("email").equalTo(firebaseUser.getEmail());
+        Query query = databaseReference.orderByChild("Uid").equalTo(firebaseUser.getUid());
         progressBar.setVisibility(View.VISIBLE);
         query.addValueEventListener(new ValueEventListener() {
             @Override

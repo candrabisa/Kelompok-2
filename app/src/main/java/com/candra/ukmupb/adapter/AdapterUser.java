@@ -47,7 +47,7 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyHolder myHolder, int position) {
         //get data
-        final String hisUID = userList.get(position).getEmail();
+        final String hisUID = userList.get(position).getUid();
         String userImage = userList.get(position).getImage();
         final String userNIM = userList.get(position).getNim();
         final String userName= userList.get(position).getNamaLengkap();

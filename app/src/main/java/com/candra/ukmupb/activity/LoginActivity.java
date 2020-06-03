@@ -138,8 +138,6 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent goLogin = new Intent(LoginActivity.this, AutoCloseable.class);
-        startActivity(goLogin);
         finish();
     }
 }

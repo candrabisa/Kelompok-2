@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -103,7 +105,7 @@ public class ChatActivity extends AppCompatActivity {
         hisUid = intent.getStringExtra("hisUid");
 
         //cari user untuk mengambil datanya
-        Query userQuery = userDataRef.orderByChild("email").equalTo(hisUid);
+        Query userQuery = userDataRef.orderByChild("Uid").equalTo(hisUid);
         //ambil foto dan nama user
         userQuery.addValueEventListener(new ValueEventListener() {
             @Override
@@ -112,18 +114,27 @@ public class ChatActivity extends AppCompatActivity {
                     //get data
                     String nama =""+ds.child("namalengkap").getValue();
                     hisImage = ""+ds.child("image").getValue();
-                    //get value online status
-                    String onlineStatus = ""+ds.child("onlineStatus").getValue();
-                    if (onlineStatus.equals("online")){
-                        tv_userStatus.setText(onlineStatus);
-                    } else {
-                        //convert dari timestamp
-                        //convert timestamp to dd/mm/yyyy hh:mm pm/am
-                        Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
-                        calendar.setTimeInMillis(Long.parseLong(onlineStatus));
-                        String dateTime = DateFormat.format("dd/MM/yyyy hh:mm aa", calendar).toString();
-                        tv_userStatus.setText("Terakhir dilihat: "+dateTime);
+                    String typingStatus = ""+ds.child("typingTo").getValue();
+
+                    //check typing status
+                    if (typingStatus.equals(myUid)){
+                        tv_userStatus.setText("Typing...");
                     }
+                    else{
+                        //get value online status
+                        String onlineStatus = ""+ds.child("onlineStatus").getValue();
+                        if (onlineStatus.equals("online")){
+                            tv_userStatus.setText(onlineStatus);
+                        } else {
+                            //convert dari timestamp
+                            //convert timestamp to dd/mm/yyyy hh:mm pm/am
+                            Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
+                            calendar.setTimeInMillis(Long.parseLong(onlineStatus));
+                            String dateTime = DateFormat.format("dd/MM/yyyy hh:mm aa", calendar).toString();
+                            tv_userStatus.setText("Terakhir dilihat: "+dateTime);
+                        }
+                    }
+
                     //set data
                     tv_nama.setText(nama);
                     try {
@@ -175,6 +186,28 @@ public class ChatActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        //check edit text change listener
+        etMessage.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().trim().length() ==0){
+                    checkTypingStatus("noOne");
+                }
+                else {
+                    checkTypingStatus(hisUid); //uid receiver
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
 
             }
         });
@@ -233,6 +266,14 @@ public class ChatActivity extends AppCompatActivity {
         dbRef.updateChildren(hashMap);
     }
 
+    private void checkTypingStatus(String typing){
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("users").child(myUid);
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("typingTo", typing);
+        //update value of onlnestatus pf current user
+        dbRef.updateChildren(hashMap);
+    }
+
 
     @Override
     protected void onStart() {
@@ -248,6 +289,7 @@ public class ChatActivity extends AppCompatActivity {
         String timestamp = String.valueOf(System.currentTimeMillis());
         //set offline with last seen time stamp
         checkOnlineStatus(timestamp);
+        checkTypingStatus("noOne");
         userRefForisSeen.removeEventListener(isSeenListener);
     }
 

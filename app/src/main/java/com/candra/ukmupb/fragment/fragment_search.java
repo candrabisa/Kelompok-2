@@ -93,12 +93,11 @@ public class fragment_search extends Fragment {
 
                     assert modelUser != null;
                     assert fUsers != null;
-                    userList.add(modelUser);
                     Log.d("Cek1", String.valueOf(modelUser.getUid()));
                     Log.d("Cek2", String.valueOf(fUsers.getUid()));
-//                    if (!modelUser.getUid().equals(fUsert.getUid())){
-//                        userList.add(modelUser);
-//                    }
+                    if (!modelUser.getUid().equals(fUsers.getUid())){
+                        userList.add(modelUser);
+                        }
                     //adapter
                     adapterUser = new AdapterUser(getActivity(), userList);
                     recyclerView.setAdapter(adapterUser);
