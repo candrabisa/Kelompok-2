@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,13 +34,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+//Created by Candra Billy Sagita
 
 public class SignUpActivity extends AppCompatActivity {
 
     public static final String TAG = "TAG";
     private FirebaseAuth mAuth;
     private FirebaseFirestore FStore;
-    private EditText etName_r, etEmail_r, etPassword_r, etNIM_r, etAnggota_r;
+    private EditText etName_r, etEmail_r, etPassword_r, etNIM_r;
+    private Spinner etAnggota_r;
     private ProgressBar progressBar_r;
     String userID;
 
@@ -78,7 +81,7 @@ public class SignUpActivity extends AppCompatActivity {
                 final String password = etPassword_r.getText().toString();
                 final String nama_lengkap = etName_r.getText().toString();
                 final String nim = etNIM_r.getText().toString();
-                final String anggota = etAnggota_r.getText().toString();
+                final String anggota = etAnggota_r.getSelectedItem().toString();
 
 
                 if (nama_lengkap.equals("")) {
@@ -123,7 +126,7 @@ public class SignUpActivity extends AppCompatActivity {
                                                             user.put("nim", nim);
                                                             user.put("anggotaukm", anggota);
                                                             user.put("password", password);
-                                                            user.put("onlineStatus", "online");
+                                                            user.put("onlineStatus", "offline");
                                                             user.put("typingTo", "noOne");
                                                             user.put("Uid", UserID);
                                                             user.put("image", "");

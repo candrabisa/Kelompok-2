@@ -2,13 +2,13 @@ package com.candra.ukmupb.model;
 
 public class ModelUser {
 
-    private String namalengkap, email, nim, anggotaukm, image, cover, Uid;
+    private String namalengkap, email, nim, anggotaukm, image, cover, Uid, onlineStatus, typingTo;
 
     public ModelUser() {
 
     }
 
-    public ModelUser(String namalengkap, String email, String nim, String anggotaukm, String image, String cover, String Uid) {
+    public ModelUser(String namalengkap, String email, String nim, String anggotaukm, String image, String cover, String Uid, String onlineStatus, String typingTo) {
         this.namalengkap = namalengkap;
         this.email = email;
         this.nim = nim;
@@ -16,13 +16,15 @@ public class ModelUser {
         this.image = image;
         this.cover = cover;
         this.Uid = Uid;
+        this.onlineStatus = onlineStatus;
+        this.typingTo = typingTo;
     }
 
-    public String getNamaLengkap() {
+    public String getNamalengkap() {
         return namalengkap;
     }
 
-    public void setNamaLengkap(String namalengkap) {
+    public void setNamalengkap(String namalengkap) {
         this.namalengkap = namalengkap;
     }
 
@@ -70,7 +72,23 @@ public class ModelUser {
         return Uid;
     }
 
-    public void setUid(String Uid) {
-        this.Uid = Uid;
+    public void setUid(String uid) {
+        Uid = uid;
+    }
+
+    public String getOnlineStatus() {
+        return onlineStatus;
+    }
+
+    public void setOnlineStatus(String onlineStatus) {
+        this.onlineStatus = onlineStatus;
+    }
+
+    public String getTypingTo() {
+        return typingTo;
+    }
+
+    public void setTypingTo(String typingTo) {
+        this.typingTo = typingTo;
     }
 }

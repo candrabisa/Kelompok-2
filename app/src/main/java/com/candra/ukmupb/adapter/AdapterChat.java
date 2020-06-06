@@ -34,6 +34,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+//Created by Candra Billy Sagita
+
 public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
 
     private static final int MSG_TYPE_LEFT = 0;

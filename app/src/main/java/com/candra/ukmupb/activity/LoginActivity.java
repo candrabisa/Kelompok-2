@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 
 import android.content.Intent;
 
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
@@ -34,8 +35,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+//Created by Candra Billy Sagita
 
 public class LoginActivity extends AppCompatActivity {
+
+    private long BackpressedTime;
+
+    private Boolean exit = false;
 
     private FirebaseAuth mAuth;
     private EditText etEmail, etPassword;
@@ -138,7 +144,14 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
+        if (exit) {
+            finish(); // finish activity
+        } else {
+            Toast.makeText(this, "Press Back again to Exit.",
+                    Toast.LENGTH_SHORT).show();
+            exit = true;
+            new Handler().postDelayed(() -> exit = false, 3 * 1000);
+        }
     }
 }
 

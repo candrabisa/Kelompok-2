@@ -61,6 +61,8 @@ import java.util.Objects;
 import static android.app.Activity.RESULT_OK;
 import static com.google.firebase.storage.FirebaseStorage.getInstance;
 
+//Created by Candra Billy Sagita
+
 public class fragment_user extends Fragment {
 
     private DatabaseReference databaseReference;

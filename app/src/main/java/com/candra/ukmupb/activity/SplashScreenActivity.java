@@ -7,6 +7,8 @@ import android.os.Bundle;
 
 import com.candra.ukmupb.R;
 
+//Created by Candra Billy Sagita
+
 public class SplashScreenActivity extends AppCompatActivity {
 
     @Override

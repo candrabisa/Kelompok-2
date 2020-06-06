@@ -116,12 +116,12 @@
                             android:text="Anggota Organisasi"
                             android:textColor="#FFFFFF"
                             android:textSize="18sp"/>
-                        <EditText
+                        <Spinner
                             android:id="@+id/etanggota_su"
                             android:layout_width="300dp"
                             android:layout_height="40dp"
                             android:background="#FFFFFF"
-                            android:hint="Keanggotaan"
+                            android:entries="@array/list_ukm"
                             android:inputType="text"
                             android:layout_marginTop="25dp"/>
                     </RelativeLayout>

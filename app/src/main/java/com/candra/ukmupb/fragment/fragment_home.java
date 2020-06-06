@@ -17,6 +17,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.annotations.Nullable;
 
+//Created by Candra Billy Sagita
+
 public class fragment_home extends Fragment {
     public fragment_home() {
         // Required empty public constructor

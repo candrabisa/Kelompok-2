@@ -21,6 +21,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+//Created by Candra Billy Sagita
+
 public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder> {
 
     Context context;
@@ -50,7 +52,7 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder> {
         final String hisUID = userList.get(position).getUid();
         String userImage = userList.get(position).getImage();
         final String userNIM = userList.get(position).getNim();
-        final String userName= userList.get(position).getNamaLengkap();
+        final String userName= userList.get(position).getNamalengkap();
         final String userOrganisasi = userList.get(position).getAnggotaukm();
 
         //set data

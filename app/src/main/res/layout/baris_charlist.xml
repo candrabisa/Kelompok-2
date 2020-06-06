@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:contentPadding="3dp"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--ImageView:User profil image-->
+        <com.blogspot.atifsoftwares.circularimageview.CircularImageView
+            android:id="@+id/ivProfile_Chatlist"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_child_care_black_24dp"/>
+        <!--ImageView: Online/Offline Status-->
+        <ImageView
+            android:id="@+id/onlineStatusIv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
+        <!--Textview Nama-->
+        <TextView
+            android:id="@+id/tvNama_Chatlist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nama_anda"
+            android:textStyle="bold"
+            android:layout_toRightOf="@id/ivProfile_Chatlist"
+            android:layout_toEndOf="@id/ivProfile_Chatlist"
+            android:textSize="18sp"
+            android:layout_marginStart="4dp"
+            android:textColor="#000000"/>
+        <TextView
+            android:id="@+id/tvLast_Message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="The Last Message"
+            android:layout_marginStart="4dp"
+            android:maxLines="2"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/ivProfile_Chatlist"
+            android:layout_toRightOf="@id/ivProfile_Chatlist"
+            android:layout_below="@id/tvNama_Chatlist"
+            android:textColor="#000000"/>
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

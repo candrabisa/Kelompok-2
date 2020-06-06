@@ -38,6 +38,7 @@ import com.google.firebase.database.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+//Created by Candra Billy Sagita
 
 /**
  * A simple {@link Fragment} subclass.
@@ -125,7 +126,7 @@ public class fragment_search extends Fragment {
                     Log.d("Cek1", modelUser.getEmail());
                     Log.d("Cek2", fUsers.getUid());
                     if (!modelUser.getEmail().equals(fUsers.getUid())){
-                        if (modelUser.getNamaLengkap().toLowerCase().contains(s.toLowerCase()) ||
+                        if (modelUser.getNamalengkap().toLowerCase().contains(s.toLowerCase()) ||
                                 modelUser.getNim().toLowerCase().contains(s.toLowerCase()) ||
                                 modelUser.getAnggotaukm().toLowerCase().contains(s.toLowerCase())){
                             userList.add(modelUser);

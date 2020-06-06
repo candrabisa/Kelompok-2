@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.candra.ukmupb.R;
 
+//Created by Candra Billy Sagita
 
 /**
  * A simple {@link Fragment} subclass.

@@ -29,6 +29,12 @@ import com.candra.ukmupb.adapter.AdapterChat;
 import com.candra.ukmupb.adapter.AdapterUser;
 import com.candra.ukmupb.model.ModelChat;
 import com.candra.ukmupb.model.ModelUser;
+import com.candra.ukmupb.notifikasi.APIService;
+import com.candra.ukmupb.notifikasi.Client;
+import com.candra.ukmupb.notifikasi.Data;
+import com.candra.ukmupb.notifikasi.Response;
+import com.candra.ukmupb.notifikasi.Sender;
+import com.candra.ukmupb.notifikasi.Token;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -39,12 +45,18 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.Nullable;
 import com.squareup.picasso.Picasso;
+import androidx.multidex.MultiDexApplication;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+
+//Created by Candra Billy Sagita
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -72,6 +84,9 @@ public class ChatActivity extends AppCompatActivity {
     String myUid;
     String hisImage;
 
+    APIService apiService;
+    boolean notify = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +109,9 @@ public class ChatActivity extends AppCompatActivity {
         //recyclerview properties
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
+
+        //buat api service
+        apiService = Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
 
         //init firebase
         mAuth = FirebaseAuth.getInstance();
@@ -155,6 +173,7 @@ public class ChatActivity extends AppCompatActivity {
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                notify = true;
                 String message = etMessage.getText().toString().trim();
                 if (TextUtils.isEmpty(message)){
                     //pesan kosong
@@ -163,6 +182,8 @@ public class ChatActivity extends AppCompatActivity {
                     //pesan tidak kosong
                     sendMessage(message);
                 }
+                //reset edittext setelah sending message
+                etMessage.setText("");
             }
         });
         readMessage();
@@ -242,9 +263,9 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    private void sendMessage(String message) {
+    private void sendMessage(final String message) {
 
-        DatabaseReference databaseReference = firebaseDatabase.getReference();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         String timestamp = String.valueOf(System.currentTimeMillis());
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", myUid);
@@ -254,8 +275,91 @@ public class ChatActivity extends AppCompatActivity {
         hashMap.put("isSeen", false);
         databaseReference.child("chats").push().setValue(hashMap);
 
-        //reset edittext setelah sending message
-        etMessage.setText("");
+
+        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference("users").child(myUid);
+        databaseReference1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ModelUser users = dataSnapshot.getValue(ModelUser.class);
+
+                if (notify){
+                    sendNotification(hisUid, users.getNamalengkap(), message);
+                }
+                notify = false;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        //create chatlist node/child in firebase database
+        DatabaseReference chatRef1 = FirebaseDatabase.getInstance().getReference("Chatlist")
+                .child(myUid)
+                .child(hisUid);
+        chatRef1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.exists()){
+                    chatRef1.child("id").setValue(myUid);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        DatabaseReference chatRef2 = FirebaseDatabase.getInstance().getReference("Chatlist")
+                .child(hisUid)
+                .child(myUid);
+        chatRef2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.exists()){
+                    chatRef1.child("id").setValue(hisUid);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void sendNotification(final String hisUid, final String namaLengkap, final String message) {
+    DatabaseReference allTokens = FirebaseDatabase.getInstance().getReference("Tokens");
+    Query query = allTokens.orderByKey().equalTo(hisUid);
+    query.addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            for (DataSnapshot ds : dataSnapshot.getChildren()){
+                Token token = ds.getValue(Token.class);
+                Data data = new Data(myUid, namaLengkap+":"+message, "New Message", hisUid, R.drawable.ic_default);
+
+                Sender sender = new Sender(data, token.getToken());
+                apiService.sendNotification(sender)
+                        .enqueue(new Callback<Response>() {
+                            @Override
+                            public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                                Toast.makeText(ChatActivity.this, ""+response.message(), Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onFailure(Call<Response> call, Throwable t) {
+
+                            }
+                        });
+            }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    });
     }
 
     private void checkOnlineStatus(String status){

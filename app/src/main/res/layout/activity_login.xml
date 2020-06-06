@@ -39,7 +39,7 @@
             android:background="#ffffff"
             android:drawableStart="@drawable/ic_email_black_24dp"
             android:hint="Email"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:autofillHints=""
             tools:ignore="TextFields" />
     </com.google.android.material.textfield.TextInputLayout>

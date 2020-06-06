@@ -22,4 +22,21 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    
+    <string-array name="list_ukm">
+        <item>English Study Club</item>
+        <item>Hinosai</item>
+        <item>Basketball</item>
+        <item>Volly</item>
+        <item>Badminton</item>
+        <item>Futsal</item>
+        <item>Seni</item>
+        <item>Pecinta Alam</item>
+        <item>Pentjak Silat</item>
+        <item>Taekwondo</item>
+        <item>Pramuka</item>
+        <item>Sepak Bola</item>
+        <item>Teater</item>
+    </string-array>
+
 </resources>
