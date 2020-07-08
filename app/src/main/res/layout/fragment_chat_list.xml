@@ -7,11 +7,12 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 tools:context=".fragment.fragment_message">
 
 <!-- TODO: Update blank fragment layout -->
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/chatlist_recyclerView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:listitem="@layout/baris_charlist"
-    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chatlist_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/YoungBrown"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/baris_charlist" />
 
 </FrameLayout>

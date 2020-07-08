@@ -5,7 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F1EDED"
-    tools:context=".activity.ChatActivity">
+    tools:context=".activity.ChatActivity"
+    android:orientation="horizontal"
+    android:layout_centerHorizontal="true"
+    android:layout_centerInParent="true">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_chat"
@@ -19,7 +22,10 @@
             android:layout_height="35dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_account_circle_black_24dp"
-            app:c_background_color="@color/colorPrimary"/>
+            app:c_background_color="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"/>
         
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,6 +52,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:background="@color/YoungBrown"
         android:id="@+id/chat_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

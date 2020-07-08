@@ -7,7 +7,7 @@
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="2dp"
     app:cardElevation="2dp"
-    app:cardBackgroundColor="@color/colorWhite"
+    app:cardBackgroundColor="@color/YoungBrown"
     app:contentPadding="3dp">
 
     <RelativeLayout
