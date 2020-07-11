@@ -29,7 +29,7 @@
                     android:layout_height="200dp"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -39,12 +39,10 @@
 
                         <ImageView
                             android:id="@+id/cover_profile"
-                            android:layout_width="345dp"
-                            android:layout_height="178dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:scaleType="centerInside"
-                            android:layout_centerHorizontal="true"
-                            android:orientation="horizontal"
-                            android:layout_gravity="center" />
+                            android:layout_centerVertical="true" />
 
                         <RelativeLayout
                             android:layout_width="wrap_content"

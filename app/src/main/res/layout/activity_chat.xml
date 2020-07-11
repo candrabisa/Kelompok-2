@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     android:background="#F1EDED"
     tools:context=".activity.ChatActivity"
-    android:orientation="horizontal"
-    android:layout_centerHorizontal="true"
+    android:orientation="vertical"
+    android:layout_centerVertical="true"
     android:layout_centerInParent="true">
 
     <androidx.appcompat.widget.Toolbar
@@ -23,9 +23,8 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ic_account_circle_black_24dp"
             app:c_background_color="@color/colorPrimary"
-            android:orientation="horizontal"
-            android:layout_centerHorizontal="true"
-            android:layout_centerInParent="true"/>
+            android:orientation="vertical"
+            android:layout_centerVertical="true" />
         
         <LinearLayout
             android:layout_width="match_parent"
