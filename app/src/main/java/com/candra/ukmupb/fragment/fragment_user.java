@@ -9,8 +9,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -31,6 +33,8 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -79,6 +83,8 @@ public class fragment_user extends Fragment {
     private EditText editText;
     private ProgressBar progressBar;
     private Button btn_edit;
+    private Button btCamera;
+    private ImageView ivCamera;
 
     //deklarasi dialog
     private ProgressDialog progressDialog;
@@ -435,7 +441,7 @@ public class fragment_user extends Fragment {
         //Intent ambil gambar dari kamera handphone
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE, "Temp Pic");
-        values.put(MediaStore.Images.Media.DESCRIPTION, "Temp Desciption");
+        values.put(MediaStore.Images.Media.DESCRIPTION, "Temp Description");
         image_uri = Objects.requireNonNull(getActivity()).getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 
         //Intent ke kamera
@@ -443,13 +449,14 @@ public class fragment_user extends Fragment {
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
         startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_REQUEST_CODE);
 
+
     }
 
     private void pickFromGallery() {
-        //ambil dari galerry
-        Intent galerryIntent = new Intent(Intent.ACTION_PICK);
-        galerryIntent.setType("image/*");
-        startActivityForResult(galerryIntent, IMAGE_PICK_GALLERY_REQUEST_CODE);
+        //ambil dari gallery
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent, IMAGE_PICK_GALLERY_REQUEST_CODE);
     }
 
     private void checkUserStatus(){

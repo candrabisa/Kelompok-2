@@ -6,9 +6,9 @@ Aplikasi ini dibuat sebagai nilai tugas kelompok Mata Kuliah Pemrograman Mobile.
 
 Kelas TI.17.D4
 Anggota Kelompok 2:
-1. Fuad Indra Septian --> Bagian Perancangan
+1. Fuad Indra Septian, Satria Panji Pangestu, Indra Sugara--> Bagian Perancangan
 2. Eko Wahyu Utomo --> Bagian UI/UX
-3. Candra Billy Sagita --> Implementasi Keduanya
+3. Candra Billy Sagita, Rifky Pratama --> Implementasi Keduanya
 
 Terimakasih kepada Bpk Donny Maulana S.Kom., M.Msi. Sebagai dosen pengampu mata kuliah Pemrograman mobile di kelas TI.17.D4.
 
